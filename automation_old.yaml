@@ -1,0 +1,74 @@
+#################### Automation ############################################
+- alias: turn vpn back on automatically
+  trigger:
+    platform: state
+    entity_id: switch.vpn
+    to: 'off'
+    for:
+      minutes: 5
+  action:
+    - service: homeassistant.turn_on
+      entity_id: switch.vpn
+#- action:
+#    data_template:
+#      entity_id: >
+#        {% if trigger.to_state.state == "pushed 1" %} switch.sonoff
+#        {% elif trigger.to_state.state == "pushed 2" %} switch.sonoff
+#        {% elif trigger.to_state.state == "pushed 3" %} switch.sonoff
+#        {% elif trigger.to_state.state == "pushed 4" %} switch.sonoff
+#        {% elif trigger.to_state.state =="held 1" %} switch.sonoff
+#        {% elif trigger.to_state.state == "held 2" %} switch.sonoff
+#        {% elif trigger.to_state.state == "held 3" %} switch.sonoff
+#        {% elif trigger.to_state.state == "held 4" %} switch.sonoff
+#        {% endif %}
+#    service_template: >
+#      {% if trigger.to_state.state == "pushed 1" %} switch.turn_on
+#      {% elif trigger.to_state.state == "pushed 2" %} switch.turn_on
+#      {% elif trigger.to_state.state == "pushed 3" %} switch.turn_on
+#      {% elif trigger.to_state.state == "pushed 4" %} switch.turn_on
+#      {% elif trigger.to_state.state =="held 1" %} switch.turn_on
+#      {% elif trigger.to_state.state == "held 2" %} switch.turn_on
+#      {% elif trigger.to_state.state == "held 3" %} switch.turn_on
+#      {% elif trigger.to_state.state == "held 4" %} switch.turn_on
+#      {% endif %}
+#  alias: aeon
+#  condition: []
+#  id: aeon1
+#  trigger:
+#    entity_id:
+#    - sensor.aeon_minimote
+#    platform: state
+#- action:
+#  - data:
+#      entity_id: 
+#        - switch.b3
+#        - switch.sonoff
+#    service_template: >
+#      {% if trigger.to_state.state == "on" %} switch.turn_on
+#      {% elif trigger.to_state.state == "off" %} switch.turn_off
+#      {% endif %}
+#  alias: b3_sync
+#  condition: []
+#  id: 'b3_sync'
+#  trigger:
+#    entity_id:
+#    - switch.b3
+#    - switch.sonoff
+#    platform: state
+#- action:
+#  - data:
+#      entity_id: 
+#        - switch.b1
+#        - switch.sonoff
+#    service_template: >
+#      {% if trigger.to_state.state == "on" %} switch.turn_on
+#      {% elif trigger.to_state.state == "off" %} switch.turn_off
+#      {% endif %}
+#  alias: b1_sync
+#  condition: []
+#  id: 'b1_sync'
+#  trigger:
+#    entity_id:
+#    - switch.b1
+#    - switch.sonoff
+#    platform: state

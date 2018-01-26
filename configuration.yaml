@@ -1,0 +1,372 @@
+switch: !include switch.yaml
+group: !include group.yaml
+automation old: !include automation_old.yaml
+automation: !include automations.yaml
+sensor: !include sensors.yaml
+alexa: !include alexa.yaml
+intent_script: !include intent_script.yaml
+
+#pilight:
+#  host: 192.168.1.31
+#  port: 5000
+#  whitelist:
+#    protocol:
+#      - clarus_switch
+#    id:
+#      - A3
+#      - B3
+#      - C7
+#      - D11
+#      - E3
+#hdmi_cec:
+#  devices:
+#    TV: 0.0.0.0
+
+#panel_iframe:
+#  configurator:
+#    title: 'Configurator'
+#    icon: mdi:console
+#    url: 'https://192.168.1.3:3228'
+#  terminal:
+#    title: 'Terminal'
+#    icon: mdi:console
+#    url: 'https://192.168.1.3:4444'
+#  utorrent:
+#    title: 'utorrent'
+#    icon: mdi:console
+#    url: 'https://192.168.1.79:8989/gui'
+#  router:
+#    title: 'router'
+#    icon: mdi:console
+#    url: 'https://192.168.1.1/Main_Login.asp'
+#############################################################################
+homeassistant:
+  name: Home
+  latitude: 42.216258
+  longitude: -71.42621
+  elevation: 59.537
+  unit_system: imperial
+  time_zone: America/New_York
+  customize:
+    switch.fan:
+      emulated_hue_hidden: false
+    switch.mute:
+      emulated_hue_hidden: false
+    group.outside:
+      emulated_hue_hidden: false
+    switch.entry:
+      emulated_hue_hidden: false
+    switch.tv:
+      emulated_hue_hidden: false
+    switch.four:
+      emulated_hue_hidden: false
+    switch.five:
+      emulated_hue_hidden: false
+    switch.twenty_five:
+      emulated_hue_hidden: false
+    switch.sixty:
+      emulated_hue_hidden: false
+    switch.single_monitor:
+      emulated_hue_hidden: false
+    switch.computer_force_idle:
+      emulated_hue_hidden: false
+    switch.computer:
+      emulated_hue_hidden: false
+    group.downstairs:
+      order: 1
+    group.upstairs:
+      order: 2
+#############################################################################
+zone:
+  name: Home
+  latitude: 42.216258
+  longitude: -71.42621
+  radius: 1000
+config:
+frontend:
+updater:
+discovery:
+conversation:
+history:
+logbook:
+  exclude:
+    entities:
+      - sensor.computer_status
+      - light.kitchen1
+      - light.kitchen2
+      - light.kitchen3
+      - sensor.office_motion
+sun:
+notify:
+  - name: pushbullet
+    platform: pushbullet
+    api_key: !secret pushbullet_api
+##################### emulated_hue #################################################
+emulated_hue:
+  host_ip: 192.168.1.4
+  expose_by_default: false
+#####################media player#################################################	
+media_player:
+  - platform: plex
+    scan_interval: 1
+    show_all_controls: false
+    use_custom_entity_ids: false
+    use_episode_art: true
+    include_non_clients: true
+########################### mqtt broker ###########################################
+mqtt:
+  broker: 192.168.1.4
+####################### HTTPS ###############################################
+http:
+  api_password: !secret api_password
+#  ssl_certificate: !secret ssl_cert 
+#  ssl_key: !secret ssl_key 
+#  base_url: !secret base_url
+#  trusted_networks:
+#    - 127.0.0.1
+#    - ::1
+#    - 192.168.1.0/24
+#    - 2001:DB8:ABCD::/48
+  login_attempts_threshold: 5
+########## Tracker ###########################################################
+device_tracker:
+  - platform: bluetooth_tracker
+    track_new_devices: false
+  - platform: asuswrt
+    host: 192.168.1.1
+    username: admin
+    password: !secret router_password
+  - platform: nmap_tracker
+    hosts: 
+      - 192.168.1.80
+      - 192.168.1.77
+    
+#camera:
+#  - platform: mjpeg
+#    mjpeg_url: http://192.168.1.79:8081/video.mjpg?q=30&fps=33&id=0.34812694693314183&r=1499382657451
+########### Hue ###########################################################
+light:
+  - platform: hue
+    host: "192.168.1.23"
+  - platform: mqtt
+    name: "media"
+    state_topic: "smartthings/Media/switch"
+    command_topic: "smartthings/Media/switch"
+    brightness_command_topic: "smartthings/Media/level"
+    brightness_state_topic: "smartthings/Media/level"
+    brightness_value_template: '{{ value }}'
+    payload_on: "on"
+    payload_off: "off"
+    brightness_scale: 99
+    retain: true
+  - platform: mqtt
+    name: "basement1"
+    state_topic: "smartthings/Office/switch"
+    command_topic: "smartthings/Office/switch"
+    brightness_command_topic: "smartthings/Office/level"
+    brightness_state_topic: "smartthings/Office/level"
+    brightness_value_template: '{{ value }}'
+    payload_on: "on"
+    payload_off: "off"
+    brightness_scale: 99
+    retain: true
+  - platform: yeelight
+    devices:
+      192.168.1.202:
+        name: yeelight1
+        transition: 1000
+        use_music_mode: True 
+      192.168.1.246:
+        name: yeelight2
+        transition: 1000
+        use_music_mode: True 
+########### thermostats #####################
+##################### keyboard ##################################################
+keyboard_remote:
+  device_descriptor: '/dev/input/by-id/usb-flirc.tv_flirc-event-kbd'
+  type: 'key_down'
+###################### sensor #########################################################
+#binary_sensor:
+#  - platform: rpi_gpio
+#    ports:
+#      17: office_motion
+#    bouncetime: 500
+################ Shell ######################################################
+shell_command:
+  open_vpn_on: '/home/homeassistant/.homeassistant/Scripts/open_vpn_on.sh'
+  open_vpn_off: '/home/homeassistant/.homeassistant/Scripts/open_vpn_off.sh'
+  restart_router: '/home/homeassistant/.homeassistant/Scripts/reboot_router.sh'
+  restart_hass: '/home/homeassistant/.homeassistant/Scripts/restart_hass'
+  hibernate: 'wget http://192.168.1.79/?message=hibernate'
+  turn_off_basement_tv: "curl -d '' http://192.168.1.118:8060/keypress/PowerOff"
+  channel_4: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 4.1"
+  channel_60: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 60.5"
+  channel_5: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1"
+  channel_7: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1"
+  channel_25: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25"
+#  channel_4_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=4.1"
+#  channel_60_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=60.5"
+#  channel_5_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=5.1"
+#  channel_7_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=7.1"
+#  channel_25_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=25.1"
+#  channel_4_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=4.1"
+#  channel_60_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=60.5"
+#  channel_5_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=5.1"
+#  channel_7_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=7.1"
+#  channel_25_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=25.1"
+  mute: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
+  pause: "curl -d '' http://192.168.1.82:8060/keypress/Play & curl -d '' http://192.168.1.118:8060/keypress/Play &"
+  play: "curl -d '' http://192.168.1.82:8060/keypress/Play & curl -d '' http://192.168.1.118:8060/keypress/Play &"
+  power: "curl -d '' http://192.168.1.82:8060/keypress/Power"
+  volume_up: "curl -d '' http://192.168.1.82:8060/keypress/VolumeUp & curl -d '' http://192.168.1.118:8060/keypress/VolumeUp &"
+  volume_down: "curl -d '' http://192.168.1.82:8060/keypress/VolumeDown & curl -d '' http://192.168.1.118:8060/keypress/VolumeDown &"
+###################### Scripts #############################################
+script:
+  steam_script:
+    sequence:
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 50117060
+          command:
+            - ok
+      - delay: 00:00:20
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 50117060
+          command:
+            - ok
+            - ok
+          delay_secs: 1
+  four:
+    sequence:
+      service: shell_command.channel_4
+  five:
+    sequence:
+      service: shell_command.channel_5
+  seven:
+    sequence:
+      service: shell_command.channel_7
+  twenty_five:
+    sequence:
+      service: shell_command.channel_25
+  sixty:
+    sequence:
+      service: shell_command.channel_60
+  play:
+    sequence:
+      service: shell_command.play
+  power:
+    sequence:
+      service: shell_command.power
+  bedtime:
+    sequence:
+      - delay:
+          minutes: 2
+      - service: homeassistant.turn_off
+        entity_id: group.downstairs
+  bedroom_off:
+    sequence:
+      - service: switch.turn_off
+        entity_id: switch.bedroom_all
+      - service: switch.turn_off
+        entity_id: switch.bedroom_all
+      - service: switch.turn_off
+        entity_id: switch.bedroom_all
+  bedroom_on:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.bedroom_all
+      - service: switch.turn_on
+        entity_id: switch.bedroom_all
+      - service: switch.turn_on
+        entity_id: switch.bedroom_all
+  3times_entry:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.entry
+      - service: switch.turn_on
+        entity_id: switch.entry
+      - service: switch.turn_on
+        entity_id: switch.entry
+  set_the_mood:
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.office
+          brightness_pct: 25
+      - service: light.turn_off
+        data:
+          entity_id: light.media
+  normal:
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.office
+          brightness_pct: 100
+      - service: light.turn_on
+        data:
+          entity_id: light.media
+          brightness_pct: 100
+  volume_up:
+    sequence:
+      - service: shell_command.volume_up
+      - service: shell_command.volume_up
+      - service: shell_command.volume_up
+      - service: shell_command.volume_up
+      - service: shell_command.volume_up
+  volume_down:
+    sequence:
+      - service: shell_command.volume_down
+      - service: shell_command.volume_down
+      - service: shell_command.volume_down
+      - service: shell_command.volume_down
+      - service: shell_command.volume_down
+  mute:
+    sequence:
+      service: shell_command.mute
+#  fox:
+#    sequence:
+#      service: shell_command.channel_25
+
+#  tv_on:
+#    sequence:
+#      - service: switch.turn_on
+#        entity_id: switch.broadlink_tv
+#      - service: switch.turn_on
+#        entity_id: switch.broadlink_tv
+#      - service: switch.turn_on
+#        entity_id: switch.broadlink_tv
+#  tv_off:
+#    sequence:
+#      - service: switch.turn_off
+#        entity_id: switch.broadlink_tv
+#      - service: switch.turn_off
+#        entity_id: switch.broadlink_tv
+#      - service: switch.turn_off
+#        entity_id: switch.broadlink_tv
+#  timed_kitchen:
+#    sequence:
+#      - service: light.turn_on
+#        entity_id: light.kitchen
+#      - delay:
+#          minutes: 10
+#      - service: light.turn_off
+#        entity_id: light.kitchen
+#scene:
+#  - name: Downstairs
+#    entities:
+#      light.media:
+#        state: on
+#      light.office:
+#        state: on
+#        brightness: 10
+#  - name: Normal
+#    entities:
+#      light.media:
+#        state: on
+#        brightness: 100
+#      light.office:
+#        state: on
+#        brightness: 100

@@ -1,0 +1,217 @@
+- action:
+  - data:
+      entity_id: switch.b_stairs
+    service: switch.turn_on
+  alias: b_stairs on when door is open
+  condition: []
+  id: '1506395780038'
+  trigger:
+  - entity_id: sensor.b_door
+    from: closed
+    platform: state
+    to: open
+- action:
+  - data:
+      entity_id: switch.b_stairs
+    service: switch.turn_off
+  alias: b_stairs off when no motion
+  condition:
+  - condition: state
+    entity_id: sensor.b_door
+    state: closed
+  id: '1506445327516'
+  trigger:
+  - entity_id: sensor.b_motion
+    from: active
+    platform: state
+    to: inactive
+- action:
+  - data:
+      entity_id: switch.b_stairs
+    service: switch.turn_on
+  alias: b_stairs on when motion
+  condition: []
+  id: '1506445423022'
+  trigger:
+  - entity_id: sensor.b_motion
+    from: inactive
+    platform: state
+    to: active
+- action:
+  - data:
+      entity_id: group.downstairs_minus_outside
+    service: homeassistant.turn_off
+  - data:
+      entity_id: group.upstairs
+    service: homeassistant.turn_off
+  alias: lights off when armed away
+  condition: []
+  id: '1506640385498'
+  trigger:
+  - entity_id: sensor.alarm
+    platform: state
+    to: away
+- action:
+  - data:
+      entity_id:
+      - light.kitchen
+    service_template: '{% if trigger.to_state.state == "active" %} light.turn_on {%
+      elif trigger.to_state.state == "inactive" %} light.turn_off {% endif %}'
+  alias: kitchen_motion
+  condition: []
+  id: kitchen_motion
+  trigger:
+    entity_id:
+    - sensor.esp_motion
+    platform: state
+- action:
+  - data:
+      entity_id: light.basement1
+    service: light.turn_on
+  - data:
+      entity_id: light.media
+    service: light.turn_on
+  - data:
+      entity_id: switch.b_stairs
+    service: switch.turn_on
+  alias: all basement on
+  condition:
+  - condition: state
+    entity_id: sensor.b_motion
+    state: inactive
+  id: '1507850170726'
+  trigger:
+  - entity_id: sensor.b_door
+    platform: state
+    to: open
+- action:
+  - data:
+      entity_id:
+      - light.yeelight1
+      - light.yeelight2
+      - switch.entry
+    service: homeassistant.turn_on
+  alias: outside_entry at sunset
+  condition: []
+  id: '1515280454569'
+  trigger:
+  - event: sunset
+    offset: -00:30:00
+    platform: sun
+- action:
+  - data:
+      entity_id:
+      - light.yeelight1
+      - light.yeelight2
+      - switch.entry
+    service: homeassistant.turn_on
+  alias: outside arrival
+  condition: []
+  id: outsideentry
+  trigger:
+  - entity_id: group.mike,group.sarah
+    platform: state
+    to: home
+- action:
+  - data:
+      entity_id:
+      - light.yeelight1
+      - light.yeelight2
+    service: light.turn_off
+  alias: outside off
+  condition: []
+  id: '1515280851205'
+  trigger:
+  - at: '22:00'
+    platform: time
+- action:
+  - data:
+      entity_id: switch.office
+    service: switch.turn_off
+  alias: computer idle
+  condition: []
+  id: '1516042288310'
+  trigger:
+  - entity_id: sensor.computer_status
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    platform: state
+    to: idle
+- action:
+  - data:
+      entity_id: switch.office
+    service: switch.turn_on
+  alias: computer active
+  condition: []
+  id: '1516043197905'
+  trigger:
+  - entity_id: sensor.computer_status
+    platform: state
+    to: active
+- action:
+  - data:
+      entity_id: switch.bedroom
+    service: switch.turn_off
+  - data:
+      entity_id: switch.fan
+    service: switch.turn_on
+  alias: aeon night
+  condition:
+  - after: '21:00'
+    before: 06:00
+    condition: time
+  id: '1515865685759'
+  trigger:
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 1
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 2
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 3
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 4
+- action:
+  - data:
+      entity_id: switch.bedroom
+    service: switch.turn_on
+  - data:
+      entity_id: switch.fan
+    service: switch.turn_off
+  alias: aeon morning
+  condition:
+  - after: 06:00
+    before: '21:00'
+    condition: time
+  id: aeon_morning
+  trigger:
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 1
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 2
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 3
+  - entity_id: sensor.aeon_minimote
+    platform: state
+    to: pushed 4
+- action:
+  - delay: 00:00:01
+  - data:
+      payload: ''
+      topic: smartthings/Aeon Minimote/button
+    service: mqtt.publish
+  alias: aeon reset
+  condition: []
+  id: '1515867507844'
+  trigger:
+  - entity_id: sensor.aeon_minimote
+    platform: state
+

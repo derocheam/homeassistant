@@ -1,0 +1,160 @@
+##################### GUI/Groups  ###################################################################
+default_view:
+  view: yes
+  entities:
+    - group.downstairs
+    - group.upstairs
+    - group.basement
+    - group.climate
+    - sensor.downstairs_temp
+    - sensor.alarm
+    - sensor.b_humidity
+    - group.people
+    - group.network
+upstairs:
+  view: no
+  entities:
+    - switch.bedroom1
+    - switch.bedroom
+    - switch.hall2
+    - switch.fan
+    - switch.office
+#    - camera.mjpeg_camera
+downstairs:
+  view: no
+  entities:
+    - light.kitchen
+    - switch.entry
+    - light.living_room
+    - light.living1
+    - light.living2
+#    - switch.outside_light
+    - group.basement
+    - switch.b_stairs
+    - switch.christmas_tree
+    - group.outside
+#    - light.yeelight1
+#    - light.yeelight2
+downstairs_minus_outside:
+  view: no
+  entities:
+    - light.kitchen
+    - switch.entry
+    - switch.christmas_tree
+    - light.living_room
+    - light.living1
+    - light.living2
+    - group.basement
+    - switch.b_stairs
+basement:
+  view: no
+  entities:
+    - light.media
+    - light.basement1
+    - switch.basement_tv
+climate:
+  view: no
+  entities:
+    - climate.living_room_nest
+    - climate.basement_nest
+    - sensor.yweather_temperature
+#
+Network:
+  view: no
+  control: hidden
+  entities:
+    - switch.computer
+    - switch.router
+    - switch.vpn
+    - switch.xfinity_vpn
+    - switch.single_monitor
+    - script.steam_script
+#    - switch.basement_tv
+#    - switch.tv
+media:
+  name: "Media"
+  view: yes
+  entities:
+    - group.remote
+    - media_player.roku_5s462e203375
+    - media_player.roku_bedroom
+    - media_player.roku_bedroom_2
+    - media_player.roku_tv
+    - media_player.roku_tv_2
+    - switch.bias_power
+mike:
+  view: no
+  icon: mdi:android
+  entities:
+    - device_tracker.moto
+    - device_tracker.moto_bt
+sarah:
+  view: no
+  icon: mdi:apple
+  entities:
+    - device_tracker.sarahsiphonederocheacom
+    - device_tracker.sarahs_iphone
+people:
+  view: no
+  entities:
+    - group.mike
+    - group.sarah
+outside:
+  view: no
+  entities:
+    - light.yeelight1
+    - light.yeelight2
+remote:
+  control: hidden
+  view: no
+  entities:
+    - switch.twenty_five
+    - switch.five
+    - switch.sixty
+    - switch.tv
+    - switch.basement_tv
+    - switch.four
+battery_group:
+  name: "Battery"
+  view: no
+  entities:
+    - sensor.hall_motion_batt
+    - sensor.basement_motion_batt
+    - sensor.xiaomi_battery
+    - sensor.basement_door_battery
+motion:
+  name: "motion"
+  view: no
+  entities:
+    - sensor.b_motion
+    - sensor.hallMotion
+    - sensor.esp_motion
+humidity:
+  name: "humidity"
+  view: no
+  entities:
+    - sensor.b_humidity
+temp:
+  name: "temp"
+  view: no
+  entities:
+    - sensor.b_door_temp
+    - sensor.b_temp
+contact:
+  name: "contact"
+  view: no
+  entities:
+    - sensor.b_door
+batteries:
+  name: "Battery"
+  view: yes
+  entities:
+    - group.battery_group
+sensors:
+  name: "sensors"
+  view: yes
+  entities:
+    - group.contact
+    - group.temp
+    - group.humidity
+    - group.motion

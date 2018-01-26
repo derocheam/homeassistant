@@ -1,0 +1,211 @@
+############ Switches ##########################################################
+- platform: mqtt
+  name: "Outside light"
+  state_topic: "smartthings/Outside Light/switch"
+  command_topic: "smartthings/Outside Light/switch"
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
+- platform: mqtt
+  name: "b_stairs"
+  state_topic: "smartthings/Basement Stairs/switch"
+  command_topic: "smartthings/Basement Stairs/switch"
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
+- platform: mqtt
+  name: "Hall2"
+  state_topic: "smartthings/Hall2/switch"
+  command_topic: "smartthings/Hall2/switch"
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
+- platform: mqtt
+  name: "sonoff"
+  state_topic: "cmnd/sonoffRF1/POWER"
+  command_topic: "cmnd/sonoffRF1/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+- platform: mqtt
+  name: "office"
+  state_topic: "stat/sonoffbasic2/POWER"
+  command_topic: "cmnd/sonoffbasic2/POWER"
+  availability_topic: "tele/sonoffbasic2/LWT"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  retain: true
+- platform: mqtt
+  name: "entry"
+  state_topic: "stat/sonoffbasic1/POWER"
+  command_topic: "cmnd/sonoffbasic1/POWER"
+  availability_topic: "tele/sonoffbasic1/LWT"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  retain: true
+- platform: mqtt
+  name: "b1"
+  state_topic: "home/433toMQTT" # defined by subjectGTWRFtoMQTT in User_config.h
+  command_topic: "home/commands/MQTTto433/PLSL_180/433_1"
+  payload_on: "4478259"
+  payload_off: "4478268"
+  optimistic: false
+  retain: true
+- platform: mqtt
+  name: "b2"
+  state_topic: "home/433toMQTT" # defined by subjectGTWRFtoMQTT in User_config.h
+  command_topic: "home/commands/MQTTto433/PLSL_180/433_1"
+  payload_on: "4478403"
+  payload_off: "4478412"
+  optimistic: false
+  retain: true
+- platform: mqtt
+  name: "b4"
+  state_topic: "home/433toMQTT" # defined by subjectGTWRFtoMQTT in User_config.h
+  command_topic: "home/commands/MQTTto433/PLSL_180/433_1"
+  payload_on: "4480259"
+  payload_off: "4480268"
+  optimistic: false
+  retain: true
+- platform: mqtt
+  name: "b5"
+  state_topic: "home/433toMQTT" # defined by subjectGTWRFtoMQTT in User_config.h
+  command_topic: "home/commands/MQTTto433/PLSL_180/433_1"
+  payload_on: "4486403"
+  payload_off: "4486412"
+  optimistic: false
+  retain: true
+- platform: mqtt
+  name: "b3"
+  state_topic: "home/433toMQTT" # defined by subjectGTWRFtoMQTT in User_config.h
+  command_topic: "home/commands/MQTTto433/PLSL_180/433_1"
+  payload_on: "4478723"
+  payload_off: "4478732"
+  optimistic: false
+  retain: true
+- platform: wake_on_lan
+  mac_address: "90-2B-34-D0-70-44"
+  host: "192.168.1.79"
+  name: "computer"
+  turn_off:
+    service: shell_command.hibernate
+- platform: wake_on_lan
+  mac_address: "99-99-99-99-99-99"
+  host: "192.168.1.1"
+  name: "Router"
+  turn_off: 
+    service: shell_command.restart_router
+- platform: command_line
+  switches:
+    four:
+      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 4.1
+      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 4.1
+- platform: command_line
+  switches:
+    five:
+      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1
+      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1
+- platform: command_line
+  switches:
+    seven:
+      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1
+      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1
+- platform: command_line
+  switches:
+    twenty_five:
+      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25.1
+      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25.1
+- platform: command_line
+  switches:
+    sixty:
+      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 60.5
+      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 60.5
+- platform: command_line
+  switches:
+    plex:
+      command_on: "curl -d '' http://192.168.1.82:8060/launch/13535"
+      command_off: "curl -d '' http://192.168.1.82:8060/launch/13535"
+- platform: command_line
+  switches:
+    mtv:
+      command_on: "curl -d '' http://192.168.1.82:8060/launch/73386"
+      command_off: "curl -d '' http://192.168.1.82:8060/launch/73386"
+- platform: command_line
+  switches:
+    food_network:
+      command_on: "curl -d '' http://192.168.1.82:8060/launch/75617 && sleep 10 && curl -d '' http://192.168.1.82:8060/keypress/select"
+      command_off: "curl -d '' http://192.168.1.82:8060/launch/75617 && sleep 10 && curl -d '' http://192.168.1.82:8060/keypress/select"
+- platform: command_line
+  switches:
+    mute:
+      command_on: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
+      command_off: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
+- platform: command_line
+  switches:
+    vpn:
+      command_on: /home/homeassistant/.homeassistant/Scripts/vpn_on.sh
+      command_off: /home/homeassistant/.homeassistant/Scripts/vpn_off.sh
+      command_state: /home/homeassistant/.homeassistant/Scripts/vpn_state.sh
+      value_template: '{{ value == "1" }}'
+- platform: command_line
+  switches:
+    single_monitor:
+      command_on: 'wget http://192.168.1.79/?message=singleMonitor'
+      command_off: 'wget http://192.168.1.79/?message=tvOnly' 
+- platform: command_line
+  switches:
+    computer_force_idle:
+      command_on: 'wget http://192.168.1.79/?message=force_idle'
+      command_off: 'wget http://192.168.1.79/?message=force_unidle' 
+- platform: broadlink
+  host: 192.168.1.160
+  mac: B4:43:0D:EE:F6:1C
+  switches:
+    button_1:
+      friendly_name: "bedroom"
+      command_on: 'sgAQARIHBRMFExEHEgYGEgYSEgcRBwa7BRMRBwUTBhIGEhIHBRMFEwUTEQcGEhIGBhISBwUSEgcFEwUTEgYSBgYTBRISBxEHBbwFExEHBhIGEgYSEgYGEgYTBRMSBgYSEgYGExEHBRMRBwUTBRMSBhIGBhMFExEHEQcGuwUTEgYGEgYSBhISBwUTBRMFExIGBhISBgYSEgcFExEHBhIGEhIGEgYGEgYTEQcSBga7BhISBgYTBRMFExEHBRMGEgUTEgYGEhIHBRMSBgYSEgYGEgYSEgYSBwYSBRMSBhIGBrsGEhIHBRIGEwUTEgYGEgYSBhISBgYTEQcFExIGBhISBwUSBhMRBxIGBhIGEhIGEgYGAAXcAAAAAAAAAAA='
+      command_off: 'sgAAAQYSBrsGEhIHBRMFEwYSEgYGEgYSBhISBwUTEgYGEhIGBhISBgYTBRMRBxIGEgYSBgYSBhMFuwYSEgcFEwUTBhISBgYSBhIGEhIHBRMSBgYSEgYGEhIGBhIGExEHEgYSBhIGBhIGEga7BhISBwUTBRMGEhIGBhIGEgYSEgcFExIGBhISBgYSEgYGEgYTEgYSBhIGEgYGEgYSBrsGEhMGBRMGEgYSEgYGEgYSBhISBwUTEgYGEhIGBhMRBgYTBRMSBhIGEgYSBgYSBhMFuwYTEgYGEgYSBhISBwUSBhMFExEHBhISBgYSEgYGEhIHBRMGEhIGEgYSBhIGBhMFEwYABdwAAAAAAAAAAA=='
+    button_2:
+      friendly_name: "bedroom1"
+      command_on: 'sgwyAAYTEgcGEwYTBhMSBwYTBhMGExIHBhMSBwYTEgcGExIHEgcSBwYUBhMGEwYTEwcSBwa8AAAAAAAA'
+      command_off: 'sgsyAAYTEgcGFAYUBhQSCAYUBhMGExIHBhQSCAYUEgcGFBIHEgcSCAYUBhQSCBIHBhMGEwa8AAAAAAAA'
+    button_3:
+      friendly_name: "christmas tree"
+      command_on: 'sgAoAQYSBhISBgYTBRMFExIGBhISBgYSEgYSBhIHBRMFEwYSBhIGEgYSEgYSBga8BRISBwUTBRMGEhIGBhIGEgYSEgcFExIGBhISBhIGEgYGEgYTBRMFEwYSBhISBhIGBrsGEhIGBhIGEgYTEQcGEgYSBhISBgYSEgcFExIGEgYSBgYSBhIGEgYTBRMFExIGEgYGuwYSEgYGEgYSBhISBwUTBhIGEhIGBhISBgYSEgcRBxEHBhIGEgYSBhIGEgYTEQcRBwa7BRMSBgYSBhIGEhIGBhMFEwUTEgYGEhIGBhISBhIGEgYGEgYTBhIGEgYSBhISBhIHBbsGEhIHBhIFEwYSEgYGEgYSBhISBwUTEQcFExIGEgYSBgYSBhMGEgUTBRMGEgYSBhIGAAXc'
+      command_off: 'sgcyAAYTEgcGEwYTBhMSBwYTBxMHExMHBxMSBwYTEgcTBxMHBhMGEwYTBhMSBxMHBhMGEwa8AAAAAAAA'
+#    button_4:
+#      friendly_name: "entry"
+#      command_on: 'shEyAAYTEgcGEwYTBhMSBwYTBhQGExIHBhMSBxIHEgcGExIHBhMGEwYTBhMGEwYTEggSBwa8AAAAAAAA'
+#      command_off: 'sggyAAYTEgcGEwYTBhMSBwYTBhMGExIHBhMSBxIHEgcGExIHBxMGEwYTBhMSBxIHBhMGEwa8AAAAAAAA'
+    button_5:
+      friendly_name: "fan"
+      command_on: 'sgcyAAYUEggGFAYUBhQSCAYUBhQGFBIHEggRCAYUEggGFBEIBhQFFAYUBhQGEwYTEggSCAa8AAAAAAAA'
+      command_off: 'sgsyAAcTEwcGEwYTBhMSBwYTBhMHExMHEwcTBwYTEgcGExIHBxMGEwcTBhMSBxIHBhMGEwe8AAAAAAAA'
+    bias_power:
+      friendly_name: "bias_power"
+      command_on: 'sgc0ACsQDiorECsQKxAOKisQKxAOKQ4pDikrEA4pDikOKisQDikOKQ4pDikOKQ4pKxAOKQ4AAZMAAAAA'
+      command_off: 'sgc0ACsQDiorECsQKxAOKisQKxAOKQ4pDikrEA4pDikOKisQDikOKQ4pDikOKQ4pKxAOKQ4AAZMAAAAA'
+#    bias_red:
+#      friendly_name: "bias_red"
+#      command_on: 'sgCCAA0pDikqDw4pDSkNKioPDigOKSoQKg8OAAGSKw8NKSsPKhAqDw4pKg8qEA0pDikNKSsPDSkOKQ0pKhANKQ4pDSkqEA0pDikqDysPDgABkioQDSkqDysPKg8OKSoPKhANKQ4pDSkqEA0pDikNKSoQDSkNKg0pKg8OKQ4oKw8qEA0ABdwAAAAAAAA'
+#      command_off: 'sgCCAA0pDikqDw4pDSkNKioPDigOKSoQKg8OAAGSKw8NKSsPKhAqDw4pKg8qEA0pDikNKSsPDSkOKQ0pKhANKQ4pDSkqEA0pDikqDysPDgABkioQDSkqDysPKg8OKSoPKhANKQ4pDSkqEA0pDikNKSoQDSkNKg0pKg8OKQ4oKw8qEA0ABdwAAAAAAAA'
+#    bias_white:
+#      friendly_name: "bias_white"
+#      command_on: 'sgD8ACoQDSkqECoPDikNKQ0pKhANKQ4oDikqDw4pDSkNKSoQDSkOKA4pKg8OAAGSKhANKSoPKw8qDw0pKhAqDw4pDSkNKSsPDSkOKA4pKg8OKQ0pDigqEA4oDigOKSoPDgABkioPDikqDyoPKhANKSoPKhAOKA4oDikqDw4oDikNKSoPDikNKQ4oKhAOKA4oDikqDw4AAZIqEA0pKg8rDyoPDigrDyoQDSkOKQ0pKg8OKA4pDSkqEA0pDigOKSoPDikNKQ0pKg8OAAGSKw8NKSoPKw8qDw4pKg8qEA0pDikNKSoPDikNKQ0pKhAOKA4pDSkqDw4pDigOKSoPDgAF3AAAAAAAAAAAAAAAAA'
+#      command_off: 'sgD8ACoQDSkqECoPDikNKQ0pKhANKQ4oDikqDw4pDSkNKSoQDSkOKA4pKg8OAAGSKhANKSoPKw8qDw0pKhAqDw4pDSkNKSsPDSkOKA4pKg8OKQ0pDigqEA4oDigOKSoPDgABkioPDikqDyoPKhANKSoPKhAOKA4oDikqDw4oDikNKSoPDikNKQ4oKhAOKA4oDikqDw4AAZIqEA0pKg8rDyoPDigrDyoQDSkOKQ0pKg8OKA4pDSkqEA0pDigOKSoPDikNKQ0pKg8OAAGSKw8NKSoPKw8qDw4pKg8qEA0pDikNKSoPDikNKQ0pKhAOKA4pDSkqDw4pDigOKSoPDgAF3AAAAAAAAAAAAAAAAA'
+#    bias_blue:
+#      friendly_name: "bias_blue"
+#      command_on: 'sgCwAA4pDSoNKSoPDikqDw4oDikNAAGTKg8OKSoPKhAqDw0pKhAqDw4pDSkOKCoQDSkOKA4pKhANKQ0pDSkqEA0pKg8OKQ0pDgABkioQDSkqDyoQKg8OKCoQKhANKQ0pDikqDw4pDSkNKSoQDSkOKQ0pKhANKSoPDikNKQ0AAZMqEA0pKhAqDyoQDSkqECoQDSkOKQ0pKhANKQ4oDikqEA0pDikNKSoQDSkqDw4pDSkOAAXcAAAAAAAAAAA'
+#      command_off: 'sgCwAA4pDSoNKSoPDikqDw4oDikNAAGTKg8OKSoPKhAqDw0pKhAqDw4pDSkOKCoQDSkOKA4pKhANKQ0pDSkqEA0pKg8OKQ0pDgABkioQDSkqDyoQKg8OKCoQKhANKQ0pDikqDw4pDSkNKSoQDSkOKQ0pKhANKSoPDikNKQ0AAZMqEA0pKhAqDyoQDSkqECoQDSkOKQ0pKhANKQ4oDikqEA0pDikNKSoQDSkqDw4pDSkOAAXcAAAAAAAAAAA'
+#    bias_green:
+#      friendly_name: "bias_green"
+#      command_on: 'sgDQACoPDigrDyoPKw8NKSoQKg8OKA4pDigqEA0pDSkOKSoPDikNKQ4oKg8OKSoPDigqEA0AAZMqDw4oKw8qDyoQDSkqECoPDikNKQ4oKhAOKA4oDikqDw4pDSkOKCoQDSkqDw4pKg8OAAGSKg8OKSoPKhAqDw4pKg8qEA0pDSkOKCsPDigOKQ0pKg8OKQ4oDigrDw4oKw8NKSoQDQABkyoPDSkqECoPKg8OKSoPKhANKQ4oDikqDw4oDikNKSoQDSkNKQ4pKg8NKSsPDSkqDw4ABdwAAAAAAAAAAA'
+#      command_off: 'sgDQACoPDigrDyoPKw8NKSoQKg8OKA4pDigqEA0pDSkOKSoPDikNKQ4oKg8OKSoPDigqEA0AAZMqDw4oKw8qDyoQDSkqECoPDikNKQ4oKhAOKA4oDikqDw4pDSkOKCoQDSkqDw4pKg8OAAGSKg8OKSoPKhAqDw4pKg8qEA0pDSkOKCsPDigOKQ0pKg8OKQ4oDigrDw4oKw8NKSoQDQABkyoPDSkqECoPKg8OKSoPKhANKQ4oDikqDw4oDikNKSoQDSkNKQ4pKg8NKSsPDSkqDw4ABdwAAAAAAAAAAA'
+    tv:
+      friendly_name: "tv"
+      command_on: 'JgAgAQABLJMUERQ1ERQTNhUQETkUNRU1FDYROBU1FBETEREUEzYVNRU1FDUUNhMSEzQWERMRFBERFBETFBETNhQRFDYTNhQ2EwAE5wABKZYUEBE5ExEUNhQRETgUNhQ2EDkVNRQ1FRARFBMRETkUNRU1FDYUNRQRFDYRExQREzYUERAVERMUNhMRETkUNhQQEQAE6QABLJMUEBU1ERMUNhEUEzYVNRE4FTURORM2FRAUERMRFDYTNhQ2FDYUNREUEzYVEBEUEzYUEREUERMUNhMRFDYTNxMREQAE6QABLJMUEBQ2FBETNhEUETgUNhE5ETgRORQ2ERMUERETFDYUNhM2FDYTNxMRFDYTEhMRFDYTERQRERQTNhMSEzYUNhMSEwANBQAAAAAAAAAA'
+      command_off: 'JgAgAQABLJMUERQ1ERQTNhUQETkUNRU1FDYROBU1FBETEREUEzYVNRU1FDUUNhMSEzQWERMRFBERFBETFBETNhQRFDYTNhQ2EwAE5wABKZYUEBE5ExEUNhQRETgUNhQ2EDkVNRQ1FRARFBMRETkUNRU1FDYUNRQRFDYRExQREzYUERAVERMUNhMRETkUNhQQEQAE6QABLJMUEBU1ERMUNhEUEzYVNRE4FTURORM2FRAUERMRFDYTNhQ2FDYUNREUEzYVEBEUEzYUEREUERMUNhMRFDYTNxMREQAE6QABLJMUEBQ2FBETNhEUETgUNhE5ETgRORQ2ERMUERETFDYUNhM2FDYTNxMRFDYTEhMRFDYTERQRERQTNhMSEzYUNhMSEwANBQAAAAAAAAAA'        

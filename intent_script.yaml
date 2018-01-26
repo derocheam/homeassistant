@@ -1,0 +1,52 @@
+amzn1.ask.skill.575cf918-3c78-4f94-bdd8-fc73c80dae9e:
+  action:
+    service: script.turn_on
+    entity_id: script.set_the_mood
+  speech:
+    type: plain
+    text: OK
+amzn1.ask.skill.733caab2-9128-4abe-a080-4f41800def50:
+  action:
+    service: script.turn_on
+    entity_id: script.normal
+  speech:
+    type: plain
+    text: OK
+amzn1.ask.skill.d566e1f4-ad90-4d34-81d9-2f21f3fad87f:
+  action:
+    service: script.turn_on
+    entity_id: script.bedtime
+  speech:
+    type: plain
+    text: OK
+amzn1.ask.skill.7947d550-4dc8-46b3-bb8a-c5edeba83657:
+  action:
+    service: script.turn_on
+    entity_id: script.volume_up
+  speech:
+    type: plain
+    text: OK
+amzn1.ask.skill.d16c3f06-eec4-41ce-b217-9c0c412c135b:
+  action:
+    service: script.turn_on
+    entity_id: script.volume_down
+  speech:
+    type: plain
+    text: OK
+amzn1.ask.skill.7b57e8f0-ffc2-4e42-ad18-3b1b520cdb43:
+  action:
+    service: script.turn_on
+    entity_id: script.mute
+  speech:
+    type: plain
+    text: OK
+    
+#################################################################
+RunScriptIntent:
+  action:
+    service: script.turn_on
+    data_template:
+      entity_id: script.{{ Script | replace(" ", "_") }}
+  speech:
+    type: plain
+    text: "ok goose"
