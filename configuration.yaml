@@ -5,7 +5,7 @@ automation: !include automations.yaml
 sensor: !include sensors.yaml
 alexa: !include alexa.yaml
 intent_script: !include intent_script.yaml
-
+###test
 #pilight:
 #  host: 192.168.1.31
 #  port: 5000
