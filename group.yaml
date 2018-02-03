@@ -69,6 +69,7 @@ Network:
     - switch.xfinity_vpn
     - switch.single_monitor
     - script.steam_script
+    - script.pc_on_tv
 #    - switch.basement_tv
 #    - switch.tv
 media:

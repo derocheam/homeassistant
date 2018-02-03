@@ -86,11 +86,14 @@
     to: open
 - action:
   - data:
-      entity_id:
-      - light.yeelight1
-      - light.yeelight2
-      - switch.entry
-    service: homeassistant.turn_on
+      entity_id: light.yeelight1
+    service: light.turn_on
+  - data:
+      entity_id: light.yeelight2
+    service: light.turn_on
+  - data:
+      entity_id: switch.entry
+    service: switch.turn_on
   alias: outside_entry at sunset
   condition: []
   id: '1515280454569'
@@ -100,18 +103,24 @@
     platform: sun
 - action:
   - data:
-      entity_id:
-      - light.yeelight1
-      - light.yeelight2
-      - switch.entry
-    service: homeassistant.turn_on
+      entity_id: light.yeelight1
+    service: light.turn_on
+  - data:
+      entity_id: light.yeelight2
+    service: light.turn_on
+  - data:
+      entity_id: switch.entry
+    service: switch.turn_on
   alias: outside arrival
   condition: []
   id: outsideentry
   trigger:
-  - entity_id: group.mike,group.sarah
+  - entity_id: group.mike
     platform: state
     to: home
+  - entity_id: group.sarah
+    platform: state
+    to: group.sarah
 - action:
   - data:
       entity_id:
@@ -153,65 +162,77 @@
 - action:
   - data:
       entity_id: switch.bedroom
-    service: switch.turn_off
+    service: switch.turn_on
   - data:
       entity_id: switch.fan
+    service: switch.turn_off
+  - data:
+      entity_id: switch.bedroom_dummy
     service: switch.turn_on
-  alias: aeon night
+  alias: bedroom_button_at_6am
   condition:
-  - after: '21:00'
-    before: 06:00
-    condition: time
-  id: '1515865685759'
+  - condition: state
+    entity_id: switch.bedroom_dummy
+    state: 'off'
+  id: '1517600060427'
   trigger:
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 1
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 2
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 3
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 4
+  - payload: pushed
+    platform: mqtt
+    topic: smartthings/xiaomi button/button
+  - payload: pushed 1
+    platform: mqtt
+    topic: smartthings/Aeon Minimote/button
 - action:
   - data:
       entity_id: switch.bedroom
-    service: switch.turn_on
+    service: switch.turn_off
   - data:
       entity_id: switch.fan
-    service: switch.turn_off
-  alias: aeon morning
-  condition:
-  - after: 06:00
-    before: '21:00'
-    condition: time
-  id: aeon_morning
-  trigger:
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 1
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 2
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 3
-  - entity_id: sensor.aeon_minimote
-    platform: state
-    to: pushed 4
-- action:
-  - delay: 00:00:01
+    service: switch.turn_on
   - data:
-      payload: ''
-      topic: smartthings/Aeon Minimote/button
-    service: mqtt.publish
-  alias: aeon reset
-  condition: []
-  id: '1515867507844'
+      entity_id: switch.bedroom_dummy
+    service: switch.turn_off
+  alias: bedroom_button_at_8pm
+  condition:
+  - condition: state
+    entity_id: switch.bedroom_dummy
+    state: 'on'
+  id: '1517600060422'
   trigger:
-  - entity_id: sensor.aeon_minimote
-    platform: state
-
+  - payload: pushed
+    platform: mqtt
+    topic: smartthings/xiaomi button/button
+  - payload: pushed 1
+    platform: mqtt
+    topic: smartthings/Aeon Minimote/button
+- action:
+  - data:
+      entity_id: switch.bedroom_dummy
+    service: switch.turn_on
+  alias: bedroom_dummy_at_8pm
+  condition: []
+  id: '1517603000853'
+  trigger:
+  - at: '20:00'
+    platform: time
+- action:
+  - data:
+      entity_id: switch.bedroom_dummy
+    service: switch.turn_off
+  alias: bedroom_dummy_at_6am
+  condition: []
+  id: '1517603000878'
+  trigger:
+  - at: 06:00
+    platform: time
+- action:
+  - data:
+      entity_id: script.pc_on_tv
+    service: script.turn_on
+  alias: aeon2
+  condition: []
+  id: '1517623027397'
+  trigger:
+  - payload: pushed 2
+    platform: mqtt
+    topic: smartthings/Aeon Minimote/button
