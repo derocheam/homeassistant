@@ -16,22 +16,20 @@ upstairs:
   entities:
     - switch.bedroom1
     - switch.bedroom
-    - switch.hall2
+    - light.ge_appliances_zll_light_0010e36f_1
     - switch.fan
     - switch.office
 #    - camera.mjpeg_camera
 downstairs:
   view: no
   entities:
-    - light.kitchen
+    - group.kitchen
     - switch.entry
-    - light.living_room
-    - light.living1
-    - light.living2
+    - light.philips_lwb006_1046e6e7_11
+    - light.philips_lwb014_022876e7_11
 #    - switch.outside_light
     - group.basement
-    - switch.b_stairs
-    - switch.christmas_tree
+    - light.cree_connected_a19_60w_equivalent_fe024a16_10
     - group.outside
 #    - light.yeelight1
 #    - light.yeelight2
@@ -46,11 +44,22 @@ downstairs_minus_outside:
     - light.living2
     - group.basement
     - switch.b_stairs
+living_room:
+  view: no
+  entities:
+    - light.philips_lwb006_1046e6e7_11
+    - light.philips_lwb014_022876e7_11
+kitchen:
+  view: no
+  entities:
+    - light.philips_lwb014_022a7b66_11
+    - light.philips_lwb014_026d9956_11
+    - light.philips_lwb014_027d8175_11
 basement:
   view: no
   entities:
-    - light.media
-    - light.basement1
+    - light.basement1_level
+    - light.media_level
     - switch.basement_tv
 climate:
   view: no

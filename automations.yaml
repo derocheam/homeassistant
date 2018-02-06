@@ -1,30 +1,30 @@
 - action:
   - data:
-      entity_id: switch.b_stairs
+      entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
     service: switch.turn_on
   alias: b_stairs on when door is open
   condition: []
   id: '1506395780038'
   trigger:
-  - entity_id: sensor.b_door
-    from: closed
+  - entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
+    from: 'off'
     platform: state
-    to: open
+    to: 'on'
 - action:
   - data:
-      entity_id: switch.b_stairs
+      entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
     service: switch.turn_off
   alias: b_stairs off when no motion
   condition:
   - condition: state
-    entity_id: sensor.b_door
-    state: closed
+    entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
+    state: 'off'
   id: '1506445327516'
   trigger:
-  - entity_id: sensor.b_motion
-    from: active
+  - entity_id: binary_sensor.b_motion_sensor
+    from: 'on'
     platform: state
-    to: inactive
+    to: 'off'
 - action:
   - data:
       entity_id: switch.b_stairs
@@ -54,7 +54,7 @@
 - action:
   - data:
       entity_id:
-      - light.kitchen
+      - group.kitchen
     service_template: '{% if trigger.to_state.state == "active" %} light.turn_on {%
       elif trigger.to_state.state == "inactive" %} light.turn_off {% endif %}'
   alias: kitchen_motion
@@ -66,24 +66,24 @@
     platform: state
 - action:
   - data:
-      entity_id: light.basement1
+      entity_id: light.basement1_level
     service: light.turn_on
   - data:
-      entity_id: light.media
+      entity_id: light.media_level
     service: light.turn_on
   - data:
-      entity_id: switch.b_stairs
+      entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
     service: switch.turn_on
   alias: all basement on
   condition:
   - condition: state
-    entity_id: sensor.b_motion
-    state: inactive
+    entity_id: sensor.b_motion_burglar
+    state: '0'
   id: '1507850170726'
   trigger:
-  - entity_id: sensor.b_door
+  - entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
     platform: state
-    to: open
+    to: 'on'
 - action:
   - data:
       entity_id: light.yeelight1
@@ -112,7 +112,9 @@
       entity_id: switch.entry
     service: switch.turn_on
   alias: outside arrival
-  condition: []
+  condition:
+  - after: sunset
+    condition: sun
   id: outsideentry
   trigger:
   - entity_id: group.mike
@@ -179,9 +181,11 @@
   - payload: pushed
     platform: mqtt
     topic: smartthings/xiaomi button/button
-  - payload: pushed 1
-    platform: mqtt
-    topic: smartthings/Aeon Minimote/button
+  - event_data:
+      entity_id: zwave.aeon
+      scene_id: 1
+    event_type: zwave.scene_activated
+    platform: event
 - action:
   - data:
       entity_id: switch.bedroom
@@ -202,9 +206,11 @@
   - payload: pushed
     platform: mqtt
     topic: smartthings/xiaomi button/button
-  - payload: pushed 1
-    platform: mqtt
-    topic: smartthings/Aeon Minimote/button
+  - event_data:
+      entity_id: zwave.aeon
+      scene_id: 1
+    event_type: zwave.scene_activated
+    platform: event
 - action:
   - data:
       entity_id: switch.bedroom_dummy
@@ -233,6 +239,56 @@
   condition: []
   id: '1517623027397'
   trigger:
-  - payload: pushed 2
-    platform: mqtt
-    topic: smartthings/Aeon Minimote/button
+  - event_data:
+      entity_id: zwave.aeon
+      scene_id: 3
+    event_type: zwave.scene_activated
+    platform: event
+- action:
+  - data:
+      entity_id: script.pc_off_tv
+    service: script.turn_on
+  alias: aeon2_held
+  condition: []
+  id: aeon2_held
+  trigger:
+  - event_data:
+      entity_id: zwave.aeon
+      scene_id: 3
+    event_type: zwave.scene_activated
+    platform: event
+- action:
+  - data:
+      entity_id: light.ge_appliances_zll_light_0010e36f_1
+    service: light.turn_on
+  alias: hall motion on
+  condition: []
+  id: '1517850356215'
+  trigger:
+  - entity_id: sensor.hall_motion_burglar
+    from: '0'
+    platform: state
+    to: '8'
+- action:
+  - data:
+      entity_id: light.ge_appliances_zll_light_0010e36f_1
+    service: light.turn_off
+  alias: hall motion off
+  condition: []
+  id: '1517850356216'
+  trigger:
+  - entity_id: sensor.hall_motion_burglar
+    from: '8'
+    platform: state
+    to: '0'
+- action:
+  - data:
+      entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
+    service: light.turn_on
+  alias: b_door_open
+  condition: []
+  id: '1517858314206'
+  trigger:
+  - entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
+    platform: state
+    to: 'on'

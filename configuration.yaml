@@ -5,6 +5,12 @@ automation: !include automations.yaml
 sensor: !include sensors.yaml
 alexa: !include alexa.yaml
 intent_script: !include intent_script.yaml
+zwave:
+  usb_path: /dev/ttyUSB0
+  network_key: "0xEA, 0xAC, 0x97, 0x52, 0xE6, 0xA1, 0x2C, 0xB4, 0x01, 0x10, 0x94, 0x10, 0x65, 0x52, 0xEB, 0x63"
+zha:
+  usb_path: /dev/ttyUSB1
+  database_path: /home/homeassistant/.homeassistant/zigbee.db
 ###test
 #pilight:
 #  host: 192.168.1.31
@@ -48,6 +54,29 @@ homeassistant:
   unit_system: imperial
   time_zone: America/New_York
   customize:
+    light.philips_lwb006_1046e6e7_11:
+      emulated_hue_hidden: false
+      friendly_name: living1
+    light.philips_lwb014_022876e7_11:
+      emulated_hue_hidden: false
+      friendly_name: living2
+    light.philips_lwb014_022a7b66_11:
+      emulated_hue_hidden: false
+      friendly_name: kitchen1
+    light.philips_lwb014_026d9956_11:
+      emulated_hue_hidden: false
+      friendly_name: kitchen2
+    light.philips_lwb014_027d8175_11:
+      emulated_hue_hidden: false
+      friendly_name: kitchen3
+    light.ge_appliances_zll_light_0010e36f_1:
+      friendly_name: hall
+    light.media_level:
+      emulated_hue_hidden: false
+      friendly_name: media
+    light.basement1_level:
+      emulated_hue_hidden: false
+      friendly_name: basement1
     switch.fan:
       emulated_hue_hidden: false
     switch.mute:
@@ -72,6 +101,8 @@ homeassistant:
       emulated_hue_hidden: false
     switch.computer:
       emulated_hue_hidden: false
+    light.cree_connected_a19_60w_equivalent_fe024a16_10:
+      friendly_name: b_stairs
     group.downstairs:
       order: 1
     group.upstairs:
@@ -146,30 +177,30 @@ device_tracker:
 #    mjpeg_url: http://192.168.1.79:8081/video.mjpg?q=30&fps=33&id=0.34812694693314183&r=1499382657451
 ########### Hue ###########################################################
 light:
-  - platform: hue
-    host: "192.168.1.23"
-  - platform: mqtt
-    name: "media"
-    state_topic: "smartthings/Media/switch"
-    command_topic: "smartthings/Media/switch"
-    brightness_command_topic: "smartthings/Media/level"
-    brightness_state_topic: "smartthings/Media/level"
-    brightness_value_template: '{{ value }}'
-    payload_on: "on"
-    payload_off: "off"
-    brightness_scale: 99
-    retain: true
-  - platform: mqtt
-    name: "basement1"
-    state_topic: "smartthings/Office/switch"
-    command_topic: "smartthings/Office/switch"
-    brightness_command_topic: "smartthings/Office/level"
-    brightness_state_topic: "smartthings/Office/level"
-    brightness_value_template: '{{ value }}'
-    payload_on: "on"
-    payload_off: "off"
-    brightness_scale: 99
-    retain: true
+#  - platform: hue
+#    host: "192.168.1.23"
+#  - platform: mqtt
+#    name: "media"
+#    state_topic: "smartthings/Media/switch"
+#    command_topic: "smartthings/Media/switch"
+#    brightness_command_topic: "smartthings/Media/level"
+#    brightness_state_topic: "smartthings/Media/level"
+#    brightness_value_template: '{{ value }}'
+#    payload_on: "on"
+#    payload_off: "off"
+#    brightness_scale: 99
+#    retain: true
+#  - platform: mqtt
+#    name: "basement1"
+#    state_topic: "smartthings/Office/switch"
+#    command_topic: "smartthings/Office/switch"
+#    brightness_command_topic: "smartthings/Office/level"
+#    brightness_state_topic: "smartthings/Office/level"
+#    brightness_value_template: '{{ value }}'
+#    payload_on: "on"
+#    payload_off: "off"
+#    brightness_scale: 99
+#    retain: true
   - platform: yeelight
     devices:
       192.168.1.202:
@@ -260,6 +291,21 @@ script:
       - service: switch.turn_off
         data:
           entity_id: switch.single_monitor
+  pc_off_tv:
+    sequence:
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 48790222
+          command:
+            - PowerOff
+      - service: switch.turn_on
+        data:
+          entity_id: switch.single_monitor
+      - delay: 00:00:20
+      - service: switch.turn_off
+        data:
+          entity_id: switch.computer
   four:
     sequence:
       service: shell_command.channel_4

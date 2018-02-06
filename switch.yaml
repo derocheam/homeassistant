@@ -1,25 +1,25 @@
 ############ Switches ##########################################################
-- platform: mqtt
-  name: "Outside light"
-  state_topic: "smartthings/Outside Light/switch"
-  command_topic: "smartthings/Outside Light/switch"
-  payload_on: "on"
-  payload_off: "off"
-  retain: true
-- platform: mqtt
-  name: "b_stairs"
-  state_topic: "smartthings/Basement Stairs/switch"
-  command_topic: "smartthings/Basement Stairs/switch"
-  payload_on: "on"
-  payload_off: "off"
-  retain: true
-- platform: mqtt
-  name: "Hall2"
-  state_topic: "smartthings/Hall2/switch"
-  command_topic: "smartthings/Hall2/switch"
-  payload_on: "on"
-  payload_off: "off"
-  retain: true
+#- platform: mqtt
+#  name: "Outside light"
+#  state_topic: "smartthings/Outside Light/switch"
+#  command_topic: "smartthings/Outside Light/switch"
+#  payload_on: "on"
+#  payload_off: "off"
+#  retain: true
+#- platform: mqtt
+#  name: "b_stairs"
+#  state_topic: "smartthings/Basement Stairs/switch"
+#  command_topic: "smartthings/Basement Stairs/switch"
+#  payload_on: "on"
+#  payload_off: "off"
+#  retain: true
+#- platform: mqtt
+#  name: "Hall2"
+#  state_topic: "smartthings/Hall2/switch"
+#  command_topic: "smartthings/Hall2/switch"
+#  payload_on: "on"
+#  payload_off: "off"
+#  retain: true
 - platform: mqtt
   name: "sonoff"
   state_topic: "cmnd/sonoffRF1/POWER"
