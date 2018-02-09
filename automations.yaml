@@ -21,22 +21,20 @@
     state: 'off'
   id: '1506445327516'
   trigger:
-  - entity_id: binary_sensor.b_motion_sensor
-    from: 'on'
+  - entity_id: sensor.b_motion_burglar
     platform: state
-    to: 'off'
+    to: '8'
 - action:
   - data:
-      entity_id: switch.b_stairs
+      entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
     service: switch.turn_on
   alias: b_stairs on when motion
   condition: []
   id: '1506445423022'
   trigger:
-  - entity_id: sensor.b_motion
-    from: inactive
+  - entity_id: sensor.b_motion_burglar
     platform: state
-    to: active
+    to: '0'
 - action:
   - data:
       entity_id: group.downstairs_minus_outside
@@ -48,7 +46,7 @@
   condition: []
   id: '1506640385498'
   trigger:
-  - entity_id: sensor.alarm
+  - entity_id: sensor.alarm_state
     platform: state
     to: away
 - action:
@@ -86,11 +84,8 @@
     to: 'on'
 - action:
   - data:
-      entity_id: light.yeelight1
-    service: light.turn_on
-  - data:
-      entity_id: light.yeelight2
-    service: light.turn_on
+      entity_id: group.outside
+    service: homeassistant.turn_on
   - data:
       entity_id: switch.entry
     service: switch.turn_on
@@ -235,8 +230,11 @@
   - data:
       entity_id: script.pc_on_tv
     service: script.turn_on
-  alias: aeon2
-  condition: []
+  alias: aeon2_PC
+  condition:
+  - condition: state
+    entity_id: input_select.current_game
+    state: PC
   id: '1517623027397'
   trigger:
   - event_data:
@@ -248,13 +246,48 @@
   - data:
       entity_id: script.pc_off_tv
     service: script.turn_on
-  alias: aeon2_held
-  condition: []
+  alias: aeon2_held_PC
+  condition:
+  - condition: state
+    entity_id: input_select.current_game
+    state: PC
   id: aeon2_held
   trigger:
   - event_data:
       entity_id: zwave.aeon
+      scene_id: 4
+    event_type: zwave.scene_activated
+    platform: event
+- action:
+  - data:
+      entity_id: script.ps4_on_tv
+    service: script.turn_on
+  alias: aeon2_ps4
+  condition:
+  - condition: state
+    entity_id: input_select.current_game
+    state: PS4
+  id: input_ps4
+  trigger:
+  - event_data:
+      entity_id: zwave.aeon
       scene_id: 3
+    event_type: zwave.scene_activated
+    platform: event
+- action:
+  - data:
+      entity_id: script.ps4_off_tv
+    service: script.turn_on
+  alias: aeon2_held_ps4
+  condition:
+  - condition: state
+    entity_id: input_select.current_game
+    state: PS4
+  id: ps4_2
+  trigger:
+  - event_data:
+      entity_id: zwave.aeon
+      scene_id: 4
     event_type: zwave.scene_activated
     platform: event
 - action:

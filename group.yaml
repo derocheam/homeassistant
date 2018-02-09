@@ -5,10 +5,8 @@ default_view:
     - group.downstairs
     - group.upstairs
     - group.basement
-    - group.climate
     - sensor.downstairs_temp
-    - sensor.alarm
-    - sensor.b_humidity
+    - sensor.alarm_state
     - group.people
     - group.network
 upstairs:
@@ -36,14 +34,12 @@ downstairs:
 downstairs_minus_outside:
   view: no
   entities:
-    - light.kitchen
+    - group.kitchen
     - switch.entry
-    - switch.christmas_tree
-    - light.living_room
-    - light.living1
-    - light.living2
+    - group.living_room
     - group.basement
-    - switch.b_stairs
+    - light.cree_connected_a19_60w_equivalent_fe024a16_10
+    - group.upstairs
 living_room:
   view: no
   entities:
@@ -61,13 +57,6 @@ basement:
     - light.basement1_level
     - light.media_level
     - switch.basement_tv
-climate:
-  view: no
-  entities:
-    - climate.living_room_nest
-    - climate.basement_nest
-    - sensor.yweather_temperature
-#
 Network:
   view: no
   control: hidden
@@ -79,6 +68,7 @@ Network:
     - switch.single_monitor
     - script.steam_script
     - script.pc_on_tv
+    - input_select.current_game
 #    - switch.basement_tv
 #    - switch.tv
 media:
@@ -124,14 +114,6 @@ remote:
     - switch.tv
     - switch.basement_tv
     - switch.four
-battery_group:
-  name: "Battery"
-  view: no
-  entities:
-    - sensor.hall_motion_batt
-    - sensor.basement_motion_batt
-    - sensor.xiaomi_battery
-    - sensor.basement_door_battery
 motion:
   name: "motion"
   view: no
@@ -139,27 +121,6 @@ motion:
     - sensor.b_motion
     - sensor.hallMotion
     - sensor.esp_motion
-humidity:
-  name: "humidity"
-  view: no
-  entities:
-    - sensor.b_humidity
-temp:
-  name: "temp"
-  view: no
-  entities:
-    - sensor.b_door_temp
-    - sensor.b_temp
-contact:
-  name: "contact"
-  view: no
-  entities:
-    - sensor.b_door
-batteries:
-  name: "Battery"
-  view: yes
-  entities:
-    - group.battery_group
 sensors:
   name: "sensors"
   view: yes

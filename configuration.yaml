@@ -5,9 +5,16 @@ automation: !include automations.yaml
 sensor: !include sensors.yaml
 alexa: !include alexa.yaml
 intent_script: !include intent_script.yaml
+
 zwave:
   usb_path: /dev/ttyUSB0
   network_key: "0xEA, 0xAC, 0x97, 0x52, 0xE6, 0xA1, 0x2C, 0xB4, 0x01, 0x10, 0x94, 0x10, 0x65, 0x52, 0xEB, 0x63"
+#zha_new:
+#    usb_path: /dev/ttyUSB1
+#    database_path: /home/homeassistant/.homeassistant/zigbee_new.db
+#    device_config: 
+#      "00:0b:57:ff:fe:24:18:9f-1":
+#        template: tradfri_dimmer
 zha:
   usb_path: /dev/ttyUSB1
   database_path: /home/homeassistant/.homeassistant/zigbee.db
@@ -33,18 +40,6 @@ zha:
 #    title: 'Configurator'
 #    icon: mdi:console
 #    url: 'https://192.168.1.3:3228'
-#  terminal:
-#    title: 'Terminal'
-#    icon: mdi:console
-#    url: 'https://192.168.1.3:4444'
-#  utorrent:
-#    title: 'utorrent'
-#    icon: mdi:console
-#    url: 'https://192.168.1.79:8989/gui'
-#  router:
-#    title: 'router'
-#    icon: mdi:console
-#    url: 'https://192.168.1.1/Main_Login.asp'
 #############################################################################
 homeassistant:
   name: Home
@@ -177,51 +172,22 @@ device_tracker:
 #    mjpeg_url: http://192.168.1.79:8081/video.mjpg?q=30&fps=33&id=0.34812694693314183&r=1499382657451
 ########### Hue ###########################################################
 light:
-#  - platform: hue
-#    host: "192.168.1.23"
-#  - platform: mqtt
-#    name: "media"
-#    state_topic: "smartthings/Media/switch"
-#    command_topic: "smartthings/Media/switch"
-#    brightness_command_topic: "smartthings/Media/level"
-#    brightness_state_topic: "smartthings/Media/level"
-#    brightness_value_template: '{{ value }}'
-#    payload_on: "on"
-#    payload_off: "off"
-#    brightness_scale: 99
-#    retain: true
-#  - platform: mqtt
-#    name: "basement1"
-#    state_topic: "smartthings/Office/switch"
-#    command_topic: "smartthings/Office/switch"
-#    brightness_command_topic: "smartthings/Office/level"
-#    brightness_state_topic: "smartthings/Office/level"
-#    brightness_value_template: '{{ value }}'
-#    payload_on: "on"
-#    payload_off: "off"
-#    brightness_scale: 99
-#    retain: true
   - platform: yeelight
     devices:
       192.168.1.202:
         name: yeelight1
-        transition: 1000
-        use_music_mode: True 
+#        transition: 1000
+#        use_music_mode: True 
       192.168.1.246:
         name: yeelight2
-        transition: 1000
-        use_music_mode: True 
+#        transition: 1000
+#        use_music_mode: True 
 ########### thermostats #####################
 ##################### keyboard ##################################################
 keyboard_remote:
   device_descriptor: '/dev/input/by-id/usb-flirc.tv_flirc-event-kbd'
   type: 'key_down'
 ###################### sensor #########################################################
-#binary_sensor:
-#  - platform: rpi_gpio
-#    ports:
-#      17: office_motion
-#    bouncetime: 500
 ################ Shell ######################################################
 shell_command:
   open_vpn_on: '/home/homeassistant/.homeassistant/Scripts/open_vpn_on.sh'
@@ -235,22 +201,19 @@ shell_command:
   channel_5: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1"
   channel_7: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1"
   channel_25: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25"
-#  channel_4_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=4.1"
-#  channel_60_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=60.5"
-#  channel_5_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=5.1"
-#  channel_7_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=7.1"
-#  channel_25_living: "curl -d '' http://192.168.1.82:8060/launch/tvinput.dtv?ch=25.1"
-#  channel_4_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=4.1"
-#  channel_60_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=60.5"
-#  channel_5_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=5.1"
-#  channel_7_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=7.1"
-#  channel_25_basement: "curl -d '' http://192.168.1.118:8060/launch/tvinput.dtv?ch=25.1"
   mute: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
   pause: "curl -d '' http://192.168.1.82:8060/keypress/Play & curl -d '' http://192.168.1.118:8060/keypress/Play &"
   play: "curl -d '' http://192.168.1.82:8060/keypress/Play & curl -d '' http://192.168.1.118:8060/keypress/Play &"
   power: "curl -d '' http://192.168.1.82:8060/keypress/Power"
   volume_up: "curl -d '' http://192.168.1.82:8060/keypress/VolumeUp & curl -d '' http://192.168.1.118:8060/keypress/VolumeUp &"
   volume_down: "curl -d '' http://192.168.1.82:8060/keypress/VolumeDown & curl -d '' http://192.168.1.118:8060/keypress/VolumeDown &"
+###################### Input Selectors #################################
+input_select:
+  current_game:
+    name: current_game
+    options:
+     - PC
+     - PS4
 ###################### Scripts #############################################
 script:
   steam_script:
@@ -285,6 +248,12 @@ script:
           device: 48790222
           command:
             - InputHdmi4
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 48790222
+          command:
+            - Mute
       - service: switch.turn_on
         data:
           entity_id: switch.computer
@@ -306,6 +275,35 @@ script:
       - service: switch.turn_off
         data:
           entity_id: switch.computer
+  ps4_on_tv:
+    sequence:
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 48790222
+          command:
+            - PowerOn
+      - delay: 00:00:20
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 48790222
+          command:
+            - Mute
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 48790222
+          command:
+            - InputHdmi5
+  ps4_off_tv:
+    sequence:
+      - service: remote.send_command
+        data:
+          entity_id: remote.harmony_hub
+          device: 48790222
+          command:
+            - PowerOff
   four:
     sequence:
       service: shell_command.channel_4
@@ -396,44 +394,3 @@ script:
 #  fox:
 #    sequence:
 #      service: shell_command.channel_25
-
-#  tv_on:
-#    sequence:
-#      - service: switch.turn_on
-#        entity_id: switch.broadlink_tv
-#      - service: switch.turn_on
-#        entity_id: switch.broadlink_tv
-#      - service: switch.turn_on
-#        entity_id: switch.broadlink_tv
-#  tv_off:
-#    sequence:
-#      - service: switch.turn_off
-#        entity_id: switch.broadlink_tv
-#      - service: switch.turn_off
-#        entity_id: switch.broadlink_tv
-#      - service: switch.turn_off
-#        entity_id: switch.broadlink_tv
-#  timed_kitchen:
-#    sequence:
-#      - service: light.turn_on
-#        entity_id: light.kitchen
-#      - delay:
-#          minutes: 10
-#      - service: light.turn_off
-#        entity_id: light.kitchen
-#scene:
-#  - name: Downstairs
-#    entities:
-#      light.media:
-#        state: on
-#      light.office:
-#        state: on
-#        brightness: 10
-#  - name: Normal
-#    entities:
-#      light.media:
-#        state: on
-#        brightness: 100
-#      light.office:
-#        state: on
-#        brightness: 100

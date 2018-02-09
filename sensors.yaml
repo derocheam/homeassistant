@@ -1,20 +1,10 @@
 - platform: mqtt
   name: "esp_motion"
   state_topic: "/esp/motion"
-#- platform: mqtt
-#  name: "b_motion"
-#  state_topic: "smartthings/Basement Motion/motion"
 - platform: mqtt
   name: "b_temp"
   state_topic: "smartthings/Xiaomi/temperature"
   unit_of_measurement: '°F'
-#- platform: mqtt
-#  name: "b_door_temp"
-#  state_topic: "smartthings/Basement Door/temperature"
-#  unit_of_measurement: '°F'
-#- platform: mqtt
-#  name: "b_door"
-#  state_topic: "smartthings/Basement Door/contact"
 - platform: mqtt
   name: "b_humidity"
   state_topic: "smartthings/Xiaomi/humidity"
@@ -25,27 +15,7 @@
 - platform: mqtt
   name: "aeon_minimote"
   state_topic: "smartthings/Aeon Minimote/button"
-- platform: mqtt
-  name: "alarm_state"
-  state_topic: "xfinity/alarm_state"
 ################## batteries ########################
-#- platform: mqtt
-#  state_topic: "owntracks/owntracks/owntracks"
-#  name: Moto Battery"
-#  unit_of_measurement: "%"
-#  value_template: '{{ value_json.batt }}'
-#- platform: mqtt
-#  name: "hall_motion_batt"
-#  state_topic: "smartthings/Ecolink Motion Sensor/battery"
-#- platform: mqtt
-#  name: "basement_motion_batt"
-#  state_topic: "smartthings/Basement Motion/battery"
-#- platform: mqtt
-#  name: "xiaomi_battery"
-#  state_topic: "smartthings/Xiaomi/battery"
-#- platform: mqtt
-#  name: "basement_door_battery"
-#  state_topic: "smartthings/Basement Door/battery"
 ##########################################################
 - platform: broadlink
   host: 192.168.1.160
@@ -76,9 +46,15 @@
     - temp_min
     - temp_max
     - temperature
-- platform: command_line
-  command: /home/homeassistant/.homeassistant/Scripts/check_alarm.sh
-  name: alarm
+- platform: template
+  sensors:
+    alarm_state:
+      value_template: >-
+        {% if 'disarmed' in states('sensor.ifttt_email') %} disarmed
+        {% elif 'armed away' in states('sensor.ifttt_email') %} away
+        {% elif 'armed night' in states('sensor.ifttt_email') %} night
+        {% elif 'armed stay' in states('sensor.ifttt_email') %} stay
+        {% endif %}
 #- platform: command_line
 #  command: curl  http://192.168.1.82:8060/query/device-info | grep PowerOn | wc -l
 #  scan_interval: 5
