@@ -9,6 +9,15 @@ intent_script: !include intent_script.yaml
 zwave:
   usb_path: /dev/ttyUSB0
   network_key: "0xEA, 0xAC, 0x97, 0x52, 0xE6, 0xA1, 0x2C, 0xB4, 0x01, 0x10, 0x94, 0x10, 0x65, 0x52, 0xEB, 0x63"
+  device_config:
+    light.basement1_level:
+      polling_intensity: 1
+      refresh_value: true
+      delay: 2
+    light.media_level:
+      polling_intensity: 1
+      refresh_value: true
+      delay: 2
 #zha_new:
 #    usb_path: /dev/ttyUSB1
 #    database_path: /home/homeassistant/.homeassistant/zigbee_new.db

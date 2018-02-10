@@ -13,7 +13,7 @@
 - action:
   - data:
       entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
-    service: switch.turn_off
+    service: light.turn_off
   alias: b_stairs off when no motion
   condition:
   - condition: state
@@ -23,7 +23,7 @@
   trigger:
   - entity_id: sensor.b_motion_burglar
     platform: state
-    to: '8'
+    to: '0'
 - action:
   - data:
       entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
@@ -34,7 +34,7 @@
   trigger:
   - entity_id: sensor.b_motion_burglar
     platform: state
-    to: '0'
+    to: '8'
 - action:
   - data:
       entity_id: group.downstairs_minus_outside
@@ -49,19 +49,6 @@
   - entity_id: sensor.alarm_state
     platform: state
     to: away
-- action:
-  - data:
-      entity_id:
-      - group.kitchen
-    service_template: '{% if trigger.to_state.state == "active" %} light.turn_on {%
-      elif trigger.to_state.state == "inactive" %} light.turn_off {% endif %}'
-  alias: kitchen_motion
-  condition: []
-  id: kitchen_motion
-  trigger:
-    entity_id:
-    - sensor.esp_motion
-    platform: state
 - action:
   - data:
       entity_id: light.basement1_level
@@ -325,3 +312,50 @@
   - entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
     platform: state
     to: 'on'
+- action:
+  - data:
+      entity_id: switch.bedroom
+    service: switch.toggle
+  alias: aeon1_held
+  condition: []
+  id: '1518197642447'
+  trigger:
+  - event_data:
+      entity_id: zwave.aeon
+      scene_id: 2
+    event_type: zwave.scene_activated
+    platform: event
+- action:
+  - data:
+      entity_id: philips_lwb014_022a7b66_11
+    service: light.turn_on
+  - data:
+      entity_id: philips_lwb014_026d9956_11
+    service: light.turn_on
+  - data:
+      entity_id: philips_lwb014_027d8175_11
+    service: light.turn_on
+  alias: kitchen_motion_on
+  condition: []
+  id: '1518295287093'
+  trigger:
+  - entity_id: sensor.esp_motion
+    platform: state
+    to: active
+- action:
+  - data:
+      entity_id: philips_lwb014_022a7b66_11
+    service: light.turn_off
+  - data:
+      entity_id: philips_lwb014_026d9956_11
+    service: light.turn_off
+  - data:
+      entity_id: philips_lwb014_027d8175_11
+    service: light.turn_off
+  alias: kitchen_motion_off
+  condition: []
+  id: '1518295287094'
+  trigger:
+  - entity_id: sensor.esp_motion
+    platform: state
+    to: active
