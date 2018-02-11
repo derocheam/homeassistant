@@ -327,13 +327,13 @@
     platform: event
 - action:
   - data:
-      entity_id: philips_lwb014_022a7b66_11
+      entity_id: light.philips_lwb014_022a7b66_11
     service: light.turn_on
   - data:
-      entity_id: philips_lwb014_026d9956_11
+      entity_id: light.philips_lwb014_026d9956_11
     service: light.turn_on
   - data:
-      entity_id: philips_lwb014_027d8175_11
+      entity_id: light.philips_lwb014_027d8175_11
     service: light.turn_on
   alias: kitchen_motion_on
   condition: []
@@ -344,13 +344,13 @@
     to: active
 - action:
   - data:
-      entity_id: philips_lwb014_022a7b66_11
+      entity_id: light.philips_lwb014_022a7b66_11
     service: light.turn_off
   - data:
-      entity_id: philips_lwb014_026d9956_11
+      entity_id: light.philips_lwb014_026d9956_11
     service: light.turn_off
   - data:
-      entity_id: philips_lwb014_027d8175_11
+      entity_id: light.philips_lwb014_027d8175_11
     service: light.turn_off
   alias: kitchen_motion_off
   condition: []
