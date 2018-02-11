@@ -358,4 +358,4 @@
   trigger:
   - entity_id: sensor.esp_motion
     platform: state
-    to: active
+    to: inactive
