@@ -20,13 +20,14 @@ zwave:
       delay: 2
 #zha_new:
 #    usb_path: /dev/ttyUSB1
-#    database_path: /home/homeassistant/.homeassistant/zigbee_new.db
+#    database_path: /config/zigbee_new.db
 #    device_config: 
 #      "00:0b:57:ff:fe:24:18:9f-1":
 #        template: tradfri_dimmer
 zha:
   usb_path: /dev/ttyUSB1
-  database_path: /home/homeassistant/.homeassistant/zigbee.db
+#  database_path: /home/homeassistant/.homeassistant/zigbee.db
+  database_path: /config/zigbee.db
 ###test
 #pilight:
 #  host: 192.168.1.31
@@ -199,17 +200,17 @@ keyboard_remote:
 ###################### sensor #########################################################
 ################ Shell ######################################################
 shell_command:
-  open_vpn_on: '/home/homeassistant/.homeassistant/Scripts/open_vpn_on.sh'
-  open_vpn_off: '/home/homeassistant/.homeassistant/Scripts/open_vpn_off.sh'
-  restart_router: '/home/homeassistant/.homeassistant/Scripts/reboot_router.sh'
-  restart_hass: '/home/homeassistant/.homeassistant/Scripts/restart_hass'
+  open_vpn_on: '/config/Scripts/open_vpn_on.sh'
+  open_vpn_off: '/config/Scripts/open_vpn_off.sh'
+  restart_router: '/config/Scripts/reboot_router.sh'
+  restart_hass: '/config/Scripts/restart_hass'
   hibernate: 'wget http://192.168.1.79/?message=hibernate'
   turn_off_basement_tv: "curl -d '' http://192.168.1.118:8060/keypress/PowerOff"
-  channel_4: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 4.1"
-  channel_60: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 60.5"
-  channel_5: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1"
-  channel_7: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1"
-  channel_25: "/home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25"
+  channel_4: "/config/Scripts/changeChannel.sh 4.1"
+  channel_60: "/config/Scripts/changeChannel.sh 60.5"
+  channel_5: "/config/Scripts/changeChannel.sh 5.1"
+  channel_7: "/config/Scripts/changeChannel.sh 7.1"
+  channel_25: "/config/Scripts/changeChannel.sh 25"
   mute: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
   pause: "curl -d '' http://192.168.1.82:8060/keypress/Play & curl -d '' http://192.168.1.118:8060/keypress/Play &"
   play: "curl -d '' http://192.168.1.82:8060/keypress/Play & curl -d '' http://192.168.1.118:8060/keypress/Play &"

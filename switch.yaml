@@ -81,28 +81,28 @@
 - platform: command_line
   switches:
     four:
-      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 4.1
-      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 4.1
+      command_on: /config/Scripts/changeChannel.sh 4.1
+      command_off: /config/Scripts/changeChannel.sh 4.1
 - platform: command_line
   switches:
     five:
-      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1
-      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 5.1
+      command_on: /config/Scripts/changeChannel.sh 5.1
+      command_off: /config/Scripts/changeChannel.sh 5.1
 - platform: command_line
   switches:
     seven:
-      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1
-      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 7.1
+      command_on: /config/Scripts/changeChannel.sh 7.1
+      command_off: /config/Scripts/changeChannel.sh 7.1
 - platform: command_line
   switches:
     twenty_five:
-      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25.1
-      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 25.1
+      command_on: /config/Scripts/changeChannel.sh 25.1
+      command_off: /config/Scripts/changeChannel.sh 25.1
 - platform: command_line
   switches:
     sixty:
-      command_on: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 60.5
-      command_off: /home/homeassistant/.homeassistant/Scripts/changeChannel.sh 60.5
+      command_on: /config/Scripts/changeChannel.sh 60.5
+      command_off: /config/Scripts/changeChannel.sh 60.5
 - platform: command_line
   switches:
     plex:
@@ -126,9 +126,12 @@
 - platform: command_line
   switches:
     vpn:
-      command_on: /home/homeassistant/.homeassistant/Scripts/vpn_on.sh
-      command_off: /home/homeassistant/.homeassistant/Scripts/vpn_off.sh
-      command_state: /home/homeassistant/.homeassistant/Scripts/vpn_state.sh
+#      command_on: /home/homeassistant/.homeassistant/Scripts/vpn_on.sh
+#      command_off: /home/homeassistant/.homeassistant/Scripts/vpn_off.sh
+#      command_state: /home/homeassistant/.homeassistant/Scripts/vpn_state.sh
+      command_on: /config/Scripts/vpn_on.sh
+      command_off: /config/Scripts/vpn_off.sh
+      command_state: /config/Scripts/vpn_state.sh
       value_template: '{{ value == "1" }}'
 - platform: command_line
   switches:
