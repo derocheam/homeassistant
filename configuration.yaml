@@ -184,11 +184,11 @@ device_tracker:
 light:
   - platform: yeelight
     devices:
-      192.168.1.202:
+      192.168.1.61:
         name: yeelight1
 #        transition: 1000
 #        use_music_mode: True 
-      192.168.1.246:
+      192.168.1.253:
         name: yeelight2
 #        transition: 1000
 #        use_music_mode: True 
