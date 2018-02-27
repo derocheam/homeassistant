@@ -123,16 +123,13 @@
     mute:
       command_on: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
       command_off: "curl -d '' http://192.168.1.82:8060/keypress/VolumeMute & curl -d '' http://192.168.1.118:8060/keypress/VolumeMute &"
-- platform: command_line
-  switches:
-    vpn:
-#      command_on: /home/homeassistant/.homeassistant/Scripts/vpn_on.sh
-#      command_off: /home/homeassistant/.homeassistant/Scripts/vpn_off.sh
-#      command_state: /home/homeassistant/.homeassistant/Scripts/vpn_state.sh
-      command_on: /config/Scripts/vpn_on.sh
-      command_off: /config/Scripts/vpn_off.sh
-      command_state: /config/Scripts/vpn_state.sh
-      value_template: '{{ value == "1" }}'
+#- platform: command_line
+#  switches:
+#    vpn:
+#      command_on: /config/Scripts/vpn_on.sh
+#      command_off: /config/Scripts/vpn_off.sh
+#      command_state: /config/Scripts/vpn_state.sh
+#      value_template: '{{ value == "1" }}'
 - platform: command_line
   switches:
     single_monitor:
@@ -149,7 +146,7 @@
       command_on: echo
       command_off: echo
 - platform: broadlink
-  host: 192.168.1.160
+  host: 192.168.1.52
   mac: B4:43:0D:EE:F6:1C
   switches:
     button_1:

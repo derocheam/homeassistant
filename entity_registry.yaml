@@ -43,3 +43,42 @@ light.media_level:
 light.basement1_level:
   platform: zwave
   unique_id: 6-72057594143408129
+media_player.plex_web_chrome:
+  platform: plex
+  unique_id: g8ri9imx8kcynu9e2grvcohr
+media_player.plex_web_chrome_2:
+  platform: plex
+  unique_id: 0pjhw6nv79n7vpixzzpvl3x1
+media_player.roku_tv_2:
+  platform: plex
+  unique_id: f372613829a6a06d92c11f40fc1184cf
+media_player.tclroku_tv__yn007y089857:
+  platform: plex
+  unique_id: c41fb3f733effaf6067e7fc26b156ba5
+sensor.visonic_mct340_e_0b11da3e_1_1026:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:11:da:3e-1-1026
+binary_sensor.visonic_mct340_e_0b11da3e_1_1280:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:11:da:3e-1-1280
+light.philips_lwb014_022876e7_11:
+  platform: zha
+  unique_id: 00:17:88:01:02:28:76:e7-11
+light.ge_appliances_zll_light_0010e36f_1:
+  platform: zha
+  unique_id: 7c:e5:24:00:00:10:e3:6f-1
+light.cree_connected_a19_60w_equivalent_fe024a16_10:
+  platform: zha
+  unique_id: e2:0d:b9:ff:fe:02:4a:16-10
+light.philips_lwb006_1046e6e7_11:
+  platform: zha
+  unique_id: 00:17:88:01:10:46:e6:e7-11
+light.philips_lwb014_027d8175_11:
+  platform: zha
+  unique_id: 00:17:88:01:02:7d:81:75-11
+light.philips_lwb014_022a7b66_11:
+  platform: zha
+  unique_id: 00:17:88:01:02:2a:7b:66-11
+light.philips_lwb014_026d9956_11:
+  platform: zha
+  unique_id: 00:17:88:01:02:6d:99:56-11

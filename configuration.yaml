@@ -9,24 +9,20 @@ intent_script: !include intent_script.yaml
 zwave:
   usb_path: /dev/ttyUSB0
   network_key: "0xEA, 0xAC, 0x97, 0x52, 0xE6, 0xA1, 0x2C, 0xB4, 0x01, 0x10, 0x94, 0x10, 0x65, 0x52, 0xEB, 0x63"
-  device_config:
-    light.basement1_level:
-      polling_intensity: 1
-      refresh_value: true
-      delay: 2
-    light.media_level:
-      polling_intensity: 1
-      refresh_value: true
-      delay: 2
+#  device_config:
+#    light.basement1_level:
+#      polling_intensity: 1
+#      refresh_value: true
+#      delay: 2
+#    light.media_level:
+#      polling_intensity: 1
+#      refresh_value: true
+#      delay: 2
 #zha_new:
 #    usb_path: /dev/ttyUSB1
-#    database_path: /config/zigbee_new.db
-#    device_config: 
-#      "00:0b:57:ff:fe:24:18:9f-1":
-#        template: tradfri_dimmer
+#    database_path: /config/zha_new_zigbee.db
 zha:
   usb_path: /dev/ttyUSB1
-#  database_path: /home/homeassistant/.homeassistant/zigbee.db
   database_path: /config/zigbee.db
 ###test
 #pilight:
@@ -45,12 +41,16 @@ zha:
 #  devices:
 #    TV: 0.0.0.0
 
-#panel_iframe:
-#  configurator:
-#    title: 'Configurator'
-#    icon: mdi:console
-#    url: 'https://192.168.1.3:3228'
-#############################################################################
+panel_iframe:
+  deluge:
+    title: 'deluge'
+    icon: mdi:console
+    url: 'http://192.168.1.4:8112'
+  portainer:
+    title: 'portainer'
+    icon: mdi:console
+    url: 'http://192.168.1.4:9000/#/containers/'
+############################################################################
 homeassistant:
   name: Home
   latitude: 42.216258
@@ -203,7 +203,6 @@ shell_command:
   open_vpn_on: '/config/Scripts/open_vpn_on.sh'
   open_vpn_off: '/config/Scripts/open_vpn_off.sh'
   restart_router: '/config/Scripts/reboot_router.sh'
-  restart_hass: '/config/Scripts/restart_hass'
   hibernate: 'wget http://192.168.1.79/?message=hibernate'
   turn_off_basement_tv: "curl -d '' http://192.168.1.118:8060/keypress/PowerOff"
   channel_4: "/config/Scripts/changeChannel.sh 4.1"
@@ -217,6 +216,7 @@ shell_command:
   power: "curl -d '' http://192.168.1.82:8060/keypress/Power"
   volume_up: "curl -d '' http://192.168.1.82:8060/keypress/VolumeUp & curl -d '' http://192.168.1.118:8060/keypress/VolumeUp &"
   volume_down: "curl -d '' http://192.168.1.82:8060/keypress/VolumeDown & curl -d '' http://192.168.1.118:8060/keypress/VolumeDown &"
+  restart_hass: 'curl http://127.0.0.1:8126/container/hass/restart'
 ###################### Input Selectors #################################
 input_select:
   current_game:
@@ -226,6 +226,10 @@ input_select:
      - PS4
 ###################### Scripts #############################################
 script:
+  restart_hass:
+    alias: Restart Home Assistant
+    sequence:
+      - service: shell_command.restart_hass
   steam_script:
     sequence:
       - service: remote.send_command

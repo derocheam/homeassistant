@@ -61,6 +61,7 @@ Network:
   view: no
   control: hidden
   entities:
+    - script.restart_hass
     - switch.computer
     - switch.router
     - switch.vpn

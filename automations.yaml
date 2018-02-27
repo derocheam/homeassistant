@@ -119,30 +119,22 @@
     platform: time
 - action:
   - data:
+      entity_id: switch.computer
+    service: switch.turn_off
+  - data:
       entity_id: switch.office
     service: switch.turn_off
-  alias: computer idle
+  alias: computer idle for 45 min
   condition: []
   id: '1516042288310'
   trigger:
   - entity_id: sensor.computer_status
     for:
       hours: 0
-      minutes: 10
+      minutes: 45
       seconds: 0
     platform: state
     to: idle
-- action:
-  - data:
-      entity_id: switch.office
-    service: switch.turn_on
-  alias: computer active
-  condition: []
-  id: '1516043197905'
-  trigger:
-  - entity_id: sensor.computer_status
-    platform: state
-    to: active
 - action:
   - data:
       entity_id: switch.bedroom
