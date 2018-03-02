@@ -30,10 +30,10 @@
       unit_of_measurement: '°F'
 - platform: command_line
   name: basement_tv
-  command: "curl 'http://192.168.1.234:8060/query/device-info' | grep PowerOn | wc -l"
+  command: "curl --max-time 2 'http://192.168.1.234:8060/query/device-info' | grep PowerOn | wc -l"
 - platform: command_line
   name: gym_tv
-  command: "curl 'http://192.168.1.136:8060/query/device-info' | grep PowerOn | wc -l"
+  command: "curl --max-time 2 'http://192.168.1.136:8060/query/device-info' | grep PowerOn | wc -l"
 #- platform: plex
 #  host: 192.168.1.4
 #  username: derocheam

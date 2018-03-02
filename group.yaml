@@ -109,9 +109,11 @@ motion:
   name: "motion"
   view: no
   entities:
-    - sensor.b_motion
-    - sensor.hallMotion
+    - sensor.b_motion_burglar
+    - sensor.hall_motion_burglar
     - sensor.esp_motion
+    - sensor.basement_tv
+    - sensor.gym_tv
 sensors:
   name: "sensors"
   view: yes
