@@ -1,7 +1,7 @@
 - action:
   - data:
       entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
-    service: switch.turn_on
+    service: light.turn_on
   alias: b_stairs on when door is open
   condition: []
   id: '1506395780038'
@@ -17,7 +17,13 @@
   alias: b_stairs off when no motion
   condition:
   - condition: state
-    entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
+    entity_id: sensor.basement_tv
+    state: '0'
+  - condition: state
+    entity_id: sensor.gym_tv
+    state: '0'
+  - condition: state
+    entity_id: group.basement
     state: 'off'
   id: '1506445327516'
   trigger:
@@ -27,7 +33,7 @@
 - action:
   - data:
       entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
-    service: switch.turn_on
+    service: light.turn_on
   alias: b_stairs on when motion
   condition: []
   id: '1506445423022'
@@ -56,19 +62,18 @@
   - data:
       entity_id: light.media_level
     service: light.turn_on
-  - data:
-      entity_id: light.cree_connected_a19_60w_equivalent_fe024a16_10
-    service: switch.turn_on
-  alias: all basement on
   condition:
   - condition: state
-    entity_id: sensor.b_motion_burglar
-    state: '0'
+    entity_id: group.basement
+    state: 'off'
+    for:
+      hours: 1
+  alias: basement_on
   id: '1507850170726'
   trigger:
-  - entity_id: binary_sensor.visonic_mct340_e_0b11da3e_1
+  - entity_id: sensor.b_motion_burglar
     platform: state
-    to: 'on'
+    to: '8'
 - action:
   - data:
       entity_id: group.outside
@@ -319,13 +324,7 @@
     platform: event
 - action:
   - data:
-      entity_id: light.philips_lwb014_022a7b66_11
-    service: light.turn_on
-  - data:
-      entity_id: light.philips_lwb014_026d9956_11
-    service: light.turn_on
-  - data:
-      entity_id: light.philips_lwb014_027d8175_11
+      entity_id: light.kitchen
     service: light.turn_on
   alias: kitchen_motion_on
   condition: []
@@ -336,13 +335,7 @@
     to: active
 - action:
   - data:
-      entity_id: light.philips_lwb014_022a7b66_11
-    service: light.turn_off
-  - data:
-      entity_id: light.philips_lwb014_026d9956_11
-    service: light.turn_off
-  - data:
-      entity_id: light.philips_lwb014_027d8175_11
+      entity_id: light.kitchen
     service: light.turn_off
   alias: kitchen_motion_off
   condition: []

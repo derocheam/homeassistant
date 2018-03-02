@@ -59,21 +59,6 @@ homeassistant:
   unit_system: imperial
   time_zone: America/New_York
   customize:
-    light.philips_lwb006_1046e6e7_11:
-      emulated_hue_hidden: false
-      friendly_name: living1
-    light.philips_lwb014_022876e7_11:
-      emulated_hue_hidden: false
-      friendly_name: living2
-    light.philips_lwb014_022a7b66_11:
-      emulated_hue_hidden: false
-      friendly_name: kitchen1
-    light.philips_lwb014_026d9956_11:
-      emulated_hue_hidden: false
-      friendly_name: kitchen2
-    light.philips_lwb014_027d8175_11:
-      emulated_hue_hidden: false
-      friendly_name: kitchen3
     light.ge_appliances_zll_light_0010e36f_1:
       friendly_name: hall
     light.media_level:
@@ -155,8 +140,8 @@ mqtt:
 ####################### HTTPS ###############################################
 http:
   api_password: !secret api_password
-#  ssl_certificate: !secret ssl_cert 
-#  ssl_key: !secret ssl_key 
+#  ssl_certificate: /config/cert.pem
+#  ssl_key: /config/key.pem
 #  base_url: !secret base_url
 #  trusted_networks:
 #    - 127.0.0.1
@@ -176,11 +161,15 @@ device_tracker:
     hosts: 
       - 192.168.1.80
       - 192.168.1.77
+      - 192.168.1.234
     
 #camera:
 #  - platform: mjpeg
 #    mjpeg_url: http://192.168.1.79:8081/video.mjpg?q=30&fps=33&id=0.34812694693314183&r=1499382657451
 ########### Hue ###########################################################
+hue:
+  bridges:
+    - host: 192.168.1.177
 light:
   - platform: yeelight
     devices:

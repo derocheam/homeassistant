@@ -82,3 +82,18 @@ light.philips_lwb014_022a7b66_11:
 light.philips_lwb014_026d9956_11:
   platform: zha
   unique_id: 00:17:88:01:02:6d:99:56-11
+light.kitchen2:
+  platform: hue
+  unique_id: 00:17:88:01:02:6d:99:56-0b
+light.living1:
+  platform: hue
+  unique_id: 00:17:88:01:02:28:76:e7-0b
+light.kitchen1:
+  platform: hue
+  unique_id: 00:17:88:01:02:7d:81:75-0b
+light.kitchen3:
+  platform: hue
+  unique_id: 00:17:88:01:02:2a:7b:66-0b
+light.living2:
+  platform: hue
+  unique_id: 00:17:88:01:10:46:e6:e7-0b

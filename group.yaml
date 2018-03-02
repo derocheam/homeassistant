@@ -23,8 +23,9 @@ downstairs:
   entities:
     - group.kitchen
     - switch.entry
-    - light.philips_lwb006_1046e6e7_11
-    - light.philips_lwb014_022876e7_11
+    - light.kitchen
+    - light.living1
+    - light.living2
 #    - switch.outside_light
     - group.basement
     - light.cree_connected_a19_60w_equivalent_fe024a16_10
@@ -40,17 +41,6 @@ downstairs_minus_outside:
     - group.basement
     - light.cree_connected_a19_60w_equivalent_fe024a16_10
     - group.upstairs
-living_room:
-  view: no
-  entities:
-    - light.philips_lwb006_1046e6e7_11
-    - light.philips_lwb014_022876e7_11
-kitchen:
-  view: no
-  entities:
-    - light.philips_lwb014_022a7b66_11
-    - light.philips_lwb014_026d9956_11
-    - light.philips_lwb014_027d8175_11
 basement:
   view: no
   entities:
